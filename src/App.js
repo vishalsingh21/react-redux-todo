@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { Component } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import TodoList from "./components/TodoList";
+import TodoForm from "./components/TodoForm";
 
-function App() {
-  return (
-    <div className="container">
-      <p>Todo App</p>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="container my-3">
+          <Switch>
+            <Route exact path="/" component={TodoList} />
+            <Route path="/addTodo" component={TodoForm} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
