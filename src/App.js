@@ -11,6 +11,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={TodoList} />
             <Route path="/addTodo" component={TodoForm} />
+            <Route path="/editTodo/:id" component={TodoForm} />
           </Switch>
         </div>
       </BrowserRouter>

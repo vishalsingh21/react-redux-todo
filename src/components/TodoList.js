@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { apiRequest } from "../actions/todoActions";
 import Todo from "./Todo";
@@ -8,16 +9,15 @@ class TodoList extends Component {
     this.props.fetchTodos();
   }
 
-  handleAddNew = () => {
-    this.props.history.push("/addTodo");
-  };
-
   render() {
     const { todos } = this.props;
     return (
       <div className="container my-3">
-        <button onClick={this.handleAddNew}>Add New</button>
+        <Link className="button" to="/addTodo">
+          Add New{" "}
+        </Link>
         <h3>Todo List</h3>
+        {!todos.length && "No Todos"}
         {todos.map(todo => (
           <Todo key={todo.id} todo={todo} />
         ))}
@@ -27,6 +27,7 @@ class TodoList extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     todos: state.todos
   };
