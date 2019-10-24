@@ -13,8 +13,7 @@ class TodoForm extends Component {
   }
 
   componentDidMount() {
-    if (this.props.match.params.id) {
-      this.props.editTodo(this.props.match.params.id);
+    if(this.props.todo.id){
       this.setState({
         todoText: this.props.todo.text,
         editing: true
@@ -30,13 +29,16 @@ class TodoForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.addTodo(this.state.todoText);
+    if(this.state.editing){
+      this.props.updateTodo({id: this.props.todo.id, text: this.state.todoText});
+    } else {
+      this.props.addTodo(this.state.todoText);
+    }
     this.props.history.push("/");
   };
 
   render() {
-    console.log("State", this.state);
-    console.log("Props", this.props);
+    const buttonText = this.state.editing ? "Edit Todo": "Add Todo";
     return (
       <div>
         <Link className="button" to="/">
@@ -49,7 +51,7 @@ class TodoForm extends Component {
             onChange={this.handleChange}
           />
           <button className="button" type="submit">
-            Add Todo
+            {buttonText}
           </button>
         </form>
       </div>
