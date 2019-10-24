@@ -11,17 +11,97 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
 .button {
-  border: 1px solid #007bff;
-  padding: 6px 12px;
-  background: #007bff;
+  border: none;
+  border-radius: 3px;
+  padding: 12px 25px;
+  background: #616288;
   color: #fff;
   text-decoration: none;
   transition: 0.3s;
 }
 .button:hover {
-  background: #fff;
-  color: #007bff;
+  background: #7f80ad;
+  color: #fff;
   text-decoration: none;
+}
+
+.filter-container h4 {
+  background: #9d9fe6;
+  padding: 10px;
+  margin: 0;
+  line-height: 1;
+}
+.filter-container ul {
+  padding: 10px;
+  margin-top: 12px;
+  border: 1px solid #ccc;
+}
+.filter-container ul li {
+  display: flex;
+  align-items: center;
+}
+.filter-container li span {
+  margin-left: 10px;
+}
+
+.todo-header {
+  background: #9d9fe6;
+}
+.todo-header h4 {
+  padding: 9px 0;
+  margin: 0;
+}
+.todo-header .button {
+  margin-right: -15px;
+}
+
+.todo-list {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-top: 10px;
+}
+.todo-list .no-todo {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  padding: 16px 0;
+}
+
+.todo-form {
+  margin-top: 12px;
+  padding: 30px 15px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.todo-form form input[type="text"] {
+  width: 400px;
+  height: 42px;
+  padding: 10px;
+}
+.todo-form form .button {
+  padding: 10px 25px;
+  margin: 0 15px;
+}
+
+.todo-list ul {
+  width: 100%;
+}
+.todo-list ul li {
+  display: flex;
+  align-items: center;
+}
+.todo-list li span {
+  width: 80%;
+  font-size: 18px;
+  padding-left: 10px;
+}
+.todo-list li .button {
+  margin-left: 10px;
 }
