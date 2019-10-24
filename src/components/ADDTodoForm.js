@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { addTodo } from "../actions/todoActions";
+import { addTodo, editTodo } from "../actions/todoActions";
 
 class TodoForm extends Component {
   constructor(props) {
@@ -14,7 +14,11 @@ class TodoForm extends Component {
 
   componentDidMount() {
     if (this.props.match.params.id) {
-      //this.props.editTodo(id);
+      this.props.editTodo(this.props.match.params.id);
+      this.setState({
+        todoText: this.props.todo.text,
+        editing: true
+      })
     }
   }
 
@@ -31,6 +35,8 @@ class TodoForm extends Component {
   };
 
   render() {
+    console.log("State", this.state);
+    console.log("Props", this.props);
     return (
       <div>
         <Link className="button" to="/">
@@ -53,13 +59,14 @@ class TodoForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    editTodoTitle: state.editTodoTitle
+    todo: state.editTodo
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addTodo: todo => dispatch(addTodo(todo))
+    addTodo: todo => dispatch(addTodo(todo)),
+    editTodo: id => dispatch(editTodo(id))
   };
 };
 

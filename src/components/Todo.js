@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import { deleteTodo, editTodo } from "../actions/todoActions";
 
@@ -9,6 +10,7 @@ class Todo extends Component {
 
   handleEdit = id => {
     this.props.editTodo(id);
+    this.props.history.push('/editTodo/'+id);
   };
 
   render() {
@@ -16,12 +18,10 @@ class Todo extends Component {
     return (
       <li>
         {todo.text}
-        <button
+        <Link
           className="button"
-          onClick={this.handleEdit.bind(this, todo.id)}
-        >
-          Edit
-        </button>
+          to={"/editTodo/"+todo.id}
+         >Edit</Link>
         <button
           className="button"
           onClick={this.handleDelete.bind(this, todo.id)}

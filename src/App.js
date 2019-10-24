@@ -10,8 +10,8 @@ class App extends Component {
         <div className="container my-3">
           <Switch>
             <Route exact path="/" component={TodoList} />
-            <Route path="/addTodo" component={TodoForm} />
-            <Route path="/editTodo/:id" component={TodoForm} />
+            <Route path="/addTodo" component={AddTodoForm} />
+            <Route path="/editTodo/:id" component={EditTodoForm} />
           </Switch>
         </div>
       </BrowserRouter>

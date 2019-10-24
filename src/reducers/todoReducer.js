@@ -1,9 +1,9 @@
-import { FETCH_TODOS, ADD_TODO, DELETE_TODO } from "../actions/actionTypes";
+import { FETCH_TODOS, ADD_TODO, DELETE_TODO, EDIT_TODO } from "../actions/actionTypes";
 
 const initialState = {
   todos: [],
   filter: "all",
-  editTodoTitle: ""
+  editTodo: {}
 };
 
 const getId = (() => {
@@ -28,6 +28,11 @@ export const todoReducer = (state = initialState, action) => {
     case DELETE_TODO: {
       const todos = state.todos.filter(todo => todo.id !== action.payload);
       return { ...state, todos };
+    }
+
+    case EDIT_TODO: {
+      const editTodo = state.todos.find(todo => todo.id === action.payload)
+      return { ...state, editTodo };
     }
 
     default:

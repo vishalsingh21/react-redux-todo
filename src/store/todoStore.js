@@ -5,7 +5,7 @@ import { todoReducer } from "../reducers/todoReducer";
 const initialState = {
   todos: [],
   filter: "all",
-  editTodoTitle: ""
+  editTodo: {}
 };
 
 const allStoreEnhancer = compose(
