@@ -32,7 +32,8 @@ class TodoForm extends Component {
     if (this.state.editing) {
       this.props.updateTodo({
         id: this.props.todo.id,
-        text: this.state.todoText
+        text: this.state.todoText,
+        completed: this.props.todo.completed
       });
     } else {
       this.props.addTodo(this.state.todoText);
