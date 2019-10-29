@@ -1,30 +1,20 @@
 import {
-  FETCH_TODOS,
   ADD_TODO,
   DELETE_TODO,
   EDIT_TODO,
   UPDATE_TODO,
-  TOGGLE_TODO
+  TOGGLE_TODO,
+  FILTER_CHANGED,
+  COMPLETED_ALL
 } from "../actions/actionTypes";
-
-const initialState = {
-  todos: [],
-  filter: "all",
-  editTodo: {}
-};
 
 const getId = (() => {
   let id = 1;
   return () => id++;
 })();
 
-export const todoReducer = (state = initialState, action) => {
+export const todoReducer = (state, action) => {
   switch (action.type) {
-    case FETCH_TODOS: {
-      console.log(state);
-      return state;
-    }
-
     case ADD_TODO: {
       const todos = [...state.todos];
       const newTodo = { id: getId(), text: action.payload, completed: false };
@@ -54,6 +44,19 @@ export const todoReducer = (state = initialState, action) => {
       const index = todos.indexOf(action.payload.todo);
       todos[index] = { ...action.payload.todo };
       todos[index].completed = action.payload.completed;
+      return { ...state, todos };
+    }
+
+    case FILTER_CHANGED: {
+      return { ...state, filter: action.payload };
+    }
+
+    case COMPLETED_ALL: {
+      const todos = [...state.todos];
+      todos.forEach(todo => {
+        todo.completed = action.payload;
+      });
+
       return { ...state, todos };
     }
 

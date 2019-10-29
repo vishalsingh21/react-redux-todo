@@ -33,7 +33,6 @@ ul {
 }
 
 .filter-container h4 {
-  background: #9d9fe6;
   padding: 10px;
   margin: 0;
   line-height: 1;
@@ -51,9 +50,6 @@ ul {
   margin-left: 10px;
 }
 
-.todo-header {
-  background: #9d9fe6;
-}
 .todo-header h4 {
   padding: 9px 0;
   margin: 0;
@@ -96,12 +92,29 @@ ul {
 .todo-list ul li {
   display: flex;
   align-items: center;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px dashed #ccc;
 }
-.todo-list li span {
+.todo-list ul li:last-child {
+  border-bottom: none;
+}
+.todo-list li label {
   width: 80%;
   font-size: 18px;
   padding-left: 10px;
+  margin-bottom: 0;
 }
 .todo-list li .button {
   margin-left: 10px;
+}
+.todo-list li input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.todo-info {
+  border: 1px solid #ccc;
+  padding: 15px;
+  font-weight: bold;
 }

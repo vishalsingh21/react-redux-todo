@@ -1,35 +1,38 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { apiRequest, deleteTodo, editTodo } from "../actions/todoActions";
+import { deleteTodo, editTodo } from "../actions/todoActions";
 import Todo from "./Todo";
 import TodoFilter from "./TodoFilter";
+import TodoInfo from "./TodoInfo";
 
 class TodoList extends Component {
-  componentDidMount() {
-    this.props.fetchTodos();
-  }
-
-  handleDelete = id => {
-    this.props.deleteTodo(id);
-  };
-
   handleEdit = id => {
-    this.props.editTodo(id);
+    this.props.onEditTodo(id);
     this.props.history.push("/editTodo/" + id);
   };
 
+  getFilteredTodos = () => {
+    if (this.props.filter === "active") {
+      return this.props.todos.filter(t => !t.completed);
+    } else if (this.props.filter === "completed") {
+      return this.props.todos.filter(t => t.completed);
+    } else {
+      return this.props.todos;
+    }
+  };
+
   render() {
-    const { todos } = this.props;
-    const todoList = !todos.length ? (
+    const filteredTodos = this.getFilteredTodos();
+    const todoList = !filteredTodos.length ? (
       <div className="no-todo">No Todos</div>
     ) : (
       <ul>
-        {todos.map(todo => (
+        {filteredTodos.map(todo => (
           <Todo
             key={todo.id}
             todo={todo}
-            onDelete={this.handleDelete}
+            completed={todo.completed}
             onEdit={this.handleEdit}
           />
         ))}
@@ -53,7 +56,10 @@ class TodoList extends Component {
                 </Link>
               </div>
             </div>
-            <div className="row todo-list">{todoList}</div>
+            <div className="row todo-list">
+              <div className="col-12">{todoList}</div>
+            </div>
+            <TodoInfo />
           </div>
         </div>
       </div>
@@ -63,14 +69,14 @@ class TodoList extends Component {
 
 const mapStateToProps = state => {
   return {
-    todos: state.todos
+    todos: state.todos,
+    filter: state.filter
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    fetchTodos: () => dispatch(apiRequest),
-    deleteTodo: id => dispatch(deleteTodo(id)),
-    editTodo: id => dispatch(editTodo(id))
+    onDeleteTodo: id => dispatch(deleteTodo(id)),
+    onEditTodo: id => dispatch(editTodo(id))
   };
 };
 export default connect(
