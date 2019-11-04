@@ -8,12 +8,14 @@ import {
   COMPLETED_ALL
 } from "../actions/actionTypes";
 
+import { initialState } from '../store/todoStore';
+
 const getId = (() => {
-  let id = 1;
+  let id = 4;
   return () => id++;
 })();
 
-export const todoReducer = (state, action) => {
+export const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO: {
       const todos = [...state.todos];

@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { todoReducer } from "../reducers/todoReducer";
 
-const initialState = {
+export const initialState = {
   todos: [
     { id: 1, text: "Go to markert", completed: false },
     { id: 2, text: "Buy some fruits", completed: false },
