@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { deleteTodo, editTodo } from "../actions/todoActions";
+import { Filters } from '../actions/actionTypes';
 import Todo from "./Todo";
 import TodoFilter from "./TodoFilter";
 import TodoInfo from "./TodoInfo";
@@ -13,9 +14,9 @@ class TodoList extends Component {
   };
 
   getFilteredTodos = () => {
-    if (this.props.filter === "active") {
+    if (this.props.filter === Filters.SHOW_ACTIVE) {
       return this.props.todos.filter(t => !t.completed);
-    } else if (this.props.filter === "completed") {
+    } else if (this.props.filter === Filters.SHOW_COMPLETED) {
       return this.props.todos.filter(t => t.completed);
     } else {
       return this.props.todos;

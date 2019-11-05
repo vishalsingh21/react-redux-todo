@@ -1,16 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import { todoReducer } from "../reducers/todoReducer";
-
-export const initialState = {
-  todos: [
-    { id: 1, text: "Go to markert", completed: false },
-    { id: 2, text: "Buy some fruits", completed: false },
-    { id: 3, text: "Go to gym", completed: false }
-  ],
-  filter: "all",
-  editTodo: {}
-};
+import { initialState, todoReducer } from "../reducers/todoReducer";
 
 const allStoreEnhancer = compose(
   applyMiddleware(thunk),

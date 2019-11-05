@@ -1,11 +1,13 @@
-import { SET_FILTER } from "../actions/actionTypes";
+import { FILTER_CHANGED, Filters} from "../actions/actionTypes";
 
-const initialState = "all";
 
-export const todoFilterReducer = (state = initialState, action) => {
-  if (action.type === SET_FILTER) {
-    const newState = action.payload;
-    return newState;
+export const todoFilterReducer = (state = Filters.SHOW_ALL, action) => {
+  switch(action.type){
+    case FILTER_CHANGED: {
+      return action.payload;
+    }
+    default: {
+      return state;
+    }
   }
-  return state;
 };

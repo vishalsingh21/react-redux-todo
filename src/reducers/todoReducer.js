@@ -5,10 +5,19 @@ import {
   UPDATE_TODO,
   TOGGLE_TODO,
   FILTER_CHANGED,
-  COMPLETED_ALL
+  COMPLETED_ALL,
+  Filters
 } from "../actions/actionTypes";
 
-import { initialState } from '../store/todoStore';
+export const initialState = {
+  todos: [
+    { id: 1, text: "Go to markert", completed: false },
+    { id: 2, text: "Buy some fruits", completed: false },
+    { id: 3, text: "Go to gym", completed: false }
+  ],
+  filter: Filters.SHOW_ALL,
+  editTodo: {}
+};
 
 const getId = (() => {
   let id = 4;
