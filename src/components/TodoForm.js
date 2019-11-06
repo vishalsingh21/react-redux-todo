@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { addTodo, updateTodo } from "../actions/todoActions";
+import { addTodo, updateTodo, resetEditTodo } from "../actions/todoActions";
 
 class TodoForm extends Component {
   constructor(props) {
@@ -30,13 +30,14 @@ class TodoForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.editing) {
-      this.props.updateTodo({
+      this.props.onUpdateTodo({
         id: this.props.todo.id,
         text: this.state.todoText,
         completed: this.props.todo.completed
       });
+      this.props.onResetEditTodo();
     } else {
-      this.props.addTodo(this.state.todoText);
+      this.props.onAddTodo(this.state.todoText);
     }
     this.props.history.push("/");
   };
@@ -75,6 +76,7 @@ class TodoForm extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     todo: state.editTodo
   };
@@ -82,8 +84,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addTodo: todo => dispatch(addTodo(todo)),
-    updateTodo: todo => dispatch(updateTodo(todo))
+    onAddTodo: todo => dispatch(addTodo(todo)),
+    onUpdateTodo: todo => dispatch(updateTodo(todo)),
+    onResetEditTodo: () => dispatch(resetEditTodo())
   };
 };
 

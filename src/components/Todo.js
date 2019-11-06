@@ -23,7 +23,7 @@ class Todo extends Component {
           onChange={this.handleChange}
         />
         <label htmlFor={todo.id}>{todo.text}</label>
-        <button className="button" onClick={onEdit.bind(this, todo.id)}>
+        <button className="button" onClick={onEdit.bind(this, todo)}>
           Edit
         </button>
         <button

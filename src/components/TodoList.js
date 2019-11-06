@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { deleteTodo, editTodo } from "../actions/todoActions";
+import { editTodo } from "../actions/todoActions";
 import { Filters } from '../actions/actionTypes';
 import Todo from "./Todo";
 import TodoFilter from "./TodoFilter";
 import TodoInfo from "./TodoInfo";
 
 class TodoList extends Component {
-  handleEdit = id => {
-    this.props.onEditTodo(id);
-    this.props.history.push("/editTodo/" + id);
+  handleEdit = todo => {
+    this.props.onEditTodo(todo);
+    this.props.history.push("/editTodo/" + todo.id);
   };
 
   getFilteredTodos = () => {
@@ -23,6 +23,10 @@ class TodoList extends Component {
     }
   };
 
+  componentDidMount(){
+    console.log('componentDidMount: TodoList.js');
+  }
+
   render() {
     const filteredTodos = this.getFilteredTodos();
     const todoList = !filteredTodos.length ? (
@@ -33,7 +37,6 @@ class TodoList extends Component {
           <Todo
             key={todo.id}
             todo={todo}
-            completed={todo.completed}
             onEdit={this.handleEdit}
           />
         ))}
@@ -60,7 +63,7 @@ class TodoList extends Component {
             <div className="row todo-list">
               <div className="col-12">{todoList}</div>
             </div>
-            <TodoInfo />
+            <TodoInfo todos={this.props.todos} />
           </div>
         </div>
       </div>
@@ -76,7 +79,6 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onDeleteTodo: id => dispatch(deleteTodo(id)),
     onEditTodo: id => dispatch(editTodo(id))
   };
 };

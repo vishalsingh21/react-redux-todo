@@ -1,74 +1,57 @@
 import {
   ADD_TODO,
   DELETE_TODO,
-  EDIT_TODO,
   UPDATE_TODO,
   TOGGLE_TODO,
-  FILTER_CHANGED,
-  COMPLETED_ALL,
-  Filters
+  COMPLETED_ALL
 } from "../actions/actionTypes";
 
-export const initialState = {
-  todos: [
-    { id: 1, text: "Go to markert", completed: false },
-    { id: 2, text: "Buy some fruits", completed: false },
-    { id: 3, text: "Go to gym", completed: false }
-  ],
-  filter: Filters.SHOW_ALL,
-  editTodo: {}
-};
+export const todosInitialState = [
+  { id: 1, text: "Go to markert", completed: false },
+  { id: 2, text: "Buy some fruits", completed: false },
+  { id: 3, text: "Go to gym", completed: false }
+];
 
 const getId = (() => {
   let id = 4;
   return () => id++;
 })();
 
-export const todoReducer = (state = initialState, action) => {
+export const todoReducer = (state = todosInitialState, action) => {
   switch (action.type) {
-    case ADD_TODO: {
-      const todos = [...state.todos];
+    case ADD_TODO: { 
+      const todos = [...state];
       const newTodo = { id: getId(), text: action.payload, completed: false };
       todos.push(newTodo);
-      return { ...state, todos };
+      return todos;
     }
 
     case DELETE_TODO: {
-      const todos = state.todos.filter(todo => todo.id !== action.payload);
-      return { ...state, todos };
-    }
-
-    case EDIT_TODO: {
-      const editTodo = state.todos.find(todo => todo.id === action.payload);
-      return { ...state, editTodo };
+      const todos = state.filter(todo => todo.id !== action.payload);
+      return todos;
     }
 
     case UPDATE_TODO: {
-      const todos = [...state.todos];
+      const todos = [...state];
       const index = todos.findIndex(todo => todo.id === action.payload.id);
       todos[index] = { ...action.payload };
-      return { ...state, todos, editTodo: {} };
+      return todos;
     }
 
     case TOGGLE_TODO: {
-      const todos = [...state.todos];
+      const todos = [...state];
       const index = todos.indexOf(action.payload.todo);
       todos[index] = { ...action.payload.todo };
       todos[index].completed = action.payload.completed;
-      return { ...state, todos };
+      return todos;
     }
 
-    case FILTER_CHANGED: {
-      return { ...state, filter: action.payload };
-    }
-
-    case COMPLETED_ALL: {
-      const todos = [...state.todos];
+    case COMPLETED_ALL: { 
+      const todos = [...state];
       todos.forEach(todo => {
         todo.completed = action.payload;
       });
-
-      return { ...state, todos };
+      return todos;
     }
 
     default:

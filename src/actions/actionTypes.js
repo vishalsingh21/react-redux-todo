@@ -7,6 +7,7 @@ export const FILTER_CHANGED = "FILTER_CHANGED";
 export const COMPLETED_ALL = "COMPLETED_ALL";
 export const CLEAR_TODO = "CLEAR_TODO";
 export const FETCH_TODOS = "FETCH_TODOS";
+export const RESET_EDIT_TODO = "RESET_EDIT_TODO";
 
 export const Filters = {
     SHOW_ALL: 'SHOW_ALL',

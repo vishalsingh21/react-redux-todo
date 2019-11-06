@@ -5,7 +5,8 @@ import {
   UPDATE_TODO,
   TOGGLE_TODO,
   FILTER_CHANGED,
-  COMPLETED_ALL
+  COMPLETED_ALL,
+  RESET_EDIT_TODO
 } from "./actionTypes";
 
 export const addTodo = todo => {
@@ -22,12 +23,19 @@ export const deleteTodo = id => {
   };
 };
 
-export const editTodo = id => {
+export const editTodo = todo => {
   return {
     type: EDIT_TODO,
-    payload: id
+    payload: todo
   };
 };
+
+export const resetEditTodo = () => {
+  return {
+    type: RESET_EDIT_TODO,
+    payload: null
+  }
+}
 
 export const updateTodo = todo => {
   return {
