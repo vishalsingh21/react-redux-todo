@@ -2,10 +2,7 @@ import React, { Component } from "react";
 
 class TodoInfo extends Component {
 
-  componentDidMount() {
-    console.log('componentDidMount: TodoInfo');
-  }
-
+  
   handleChange = e => {
     this.props.onCompletedAll(e.target.checked);
   };

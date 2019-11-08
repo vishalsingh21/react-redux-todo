@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { editTodo, completedAll } from "../actions/todoActions";
+import { editTodo, completedAll, toggleTodo, deleteTodo } from "../actions/todoActions";
 import { Filters } from '../actions/actionTypes';
 import Todo from "./Todo";
 import TodoFilter from "./TodoFilter";
@@ -12,6 +12,14 @@ class TodoList extends Component {
     this.props.onEditTodo(todo);
     this.props.history.push("/editTodo/" + todo.id);
   };
+
+  handleDelete = (e, todo) => {
+    this.props.onDeleteTodo(todo, e.target.checked);
+  }
+
+  handleToggle = (id) => {
+    this.props.onToggleTodo(id);
+  }
 
   handleCompletedAll = completed => {
     this.props.onCheckAll(completed);
@@ -33,26 +41,20 @@ class TodoList extends Component {
     return flag;
   }
 
-  componentDidMount(){
-    console.log('componentDidMount: TodoList');
-  }
-
   render() {
     const filteredTodos = this.getFilteredTodos();
-    console.log(filteredTodos);
+    
     const todoList = !filteredTodos.length ? (
       <div className="no-todo">No Todos</div>
     ) : (
       <ul>
-        {filteredTodos.map(todo => (
-          <Todo
-            key={todo.id}
-            todo={todo}
-            onEdit={this.handleEdit}
-          />
-        ))}
+        { filteredTodos.map(todo => (
+          <Todo key={todo.id} todo={todo} onEdit={this.handleEdit} onDelete={this.handleDelete} onToggle={this.handleToggle} />
+        ))
+        }
       </ul>
     );
+    
 
     return (
       <div className="container my-3">
@@ -91,7 +93,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onEditTodo: id => dispatch(editTodo(id)),
-    onCheckAll: completed => dispatch(completedAll(completed))
+    onCheckAll: completed => dispatch(completedAll(completed)),
+    onToggleTodo: id => dispatch(toggleTodo(id)),
+    onDeleteTodo: id => dispatch(deleteTodo(id))
   };
 };
 export default connect(

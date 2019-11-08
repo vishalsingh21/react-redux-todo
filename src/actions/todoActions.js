@@ -44,10 +44,10 @@ export const updateTodo = todo => {
   };
 };
 
-export const toggleTodo = (todo, completed) => {
+export const toggleTodo = id => {
   return {
     type: TOGGLE_TODO,
-    payload: { todo, completed }
+    payload: id
   };
 };
 

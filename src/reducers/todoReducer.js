@@ -40,10 +40,17 @@ export const todoReducer = (state = todosInitialState, action) => {
 
     case TOGGLE_TODO: {
       const todos = [...state];
-      const index = todos.indexOf(action.payload.todo);
-      todos[index] = { ...action.payload.todo };
-      todos[index].completed = action.payload.completed;
-      return todos;
+      const updatedTodos = todos.map(todo => {
+          if(todo.id === action.payload){
+            todo.completed = !todo.completed;
+          }
+          return todo;
+      });
+      /* const todo = todos.find(todo => todo.id === action.payload);
+      const index = todos.indexOf(todo);
+      todos[index] = { ...todo };
+      todos[index].completed = action.payload.completed; */
+      return updatedTodos;
     }
 
     case COMPLETED_ALL: {

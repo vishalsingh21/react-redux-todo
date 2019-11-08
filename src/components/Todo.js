@@ -1,19 +1,13 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { toggleTodo, deleteTodo } from "../actions/todoActions";
 
 class Todo extends Component {
+
   handleChange = e => {
-    this.props.onToggleTodo(this.props.todo, e.target.checked);
-  };
-
-  handleDelete = id => {
-    this.props.onDelete(id);
-  };
-
+    this.props.onToggle(this.props.todo.id);
+  }
+  
   render() {
-    const { todo, onEdit } = this.props;
-    
+    const { todo, onEdit, onDelete } = this.props;
     return (
       <li>
         <input
@@ -29,7 +23,7 @@ class Todo extends Component {
         </button>
         <button
           className="button"
-          onClick={this.handleDelete.bind(this, todo.id)}
+          onClick={onDelete.bind(this, todo.id)}
         >
           Delete
         </button>
@@ -38,14 +32,4 @@ class Todo extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onToggleTodo: (todo, completed) => dispatch(toggleTodo(todo, completed)),
-    onDelete: id => dispatch(deleteTodo(id))
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Todo);
+export default Todo;
