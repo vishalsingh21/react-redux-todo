@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { completedAll } from "../actions/todoActions";
 
 class TodoInfo extends Component {
-  handleClick = e => {
+
+  componentDidMount() {
+    console.log('componentDidMount: TodoInfo');
+  }
+
+  handleChange = e => {
     this.props.onCompletedAll(e.target.checked);
   };
+
   render() {
     const { todos } = this.props;
     const totalTodos = todos.length;
@@ -13,7 +17,7 @@ class TodoInfo extends Component {
     return (
       <div className="row todo-info">
         <div className="col-4">
-          <input type="checkbox" onClick={this.handleClick} /> All Completed
+          <input name="chaeckAll" type="checkbox" onChange={this.handleChange} checked={this.props.completedAll} /> All Completed
         </div>
         <div className="col-4 text-center">
           Remaining Todo: {remainingTodos}
@@ -24,18 +28,4 @@ class TodoInfo extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    todos: state.todos
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    onCompletedAll: completed => dispatch(completedAll(completed))
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(TodoInfo);
+export default TodoInfo;

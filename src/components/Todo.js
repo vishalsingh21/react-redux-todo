@@ -13,6 +13,7 @@ class Todo extends Component {
 
   render() {
     const { todo, onEdit } = this.props;
+    
     return (
       <li>
         <input

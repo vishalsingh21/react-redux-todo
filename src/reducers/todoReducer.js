@@ -46,7 +46,7 @@ export const todoReducer = (state = todosInitialState, action) => {
       return todos;
     }
 
-    case COMPLETED_ALL: { 
+    case COMPLETED_ALL: {
       const todos = [...state];
       todos.forEach(todo => {
         todo.completed = action.payload;

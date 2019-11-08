@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { editTodo } from "../actions/todoActions";
+import { editTodo, completedAll } from "../actions/todoActions";
 import { Filters } from '../actions/actionTypes';
 import Todo from "./Todo";
 import TodoFilter from "./TodoFilter";
@@ -13,22 +13,33 @@ class TodoList extends Component {
     this.props.history.push("/editTodo/" + todo.id);
   };
 
+  handleCompletedAll = completed => {
+    this.props.onCheckAll(completed);
+  }
+
   getFilteredTodos = () => {
     if (this.props.filter === Filters.SHOW_ACTIVE) {
-      return this.props.todos.filter(t => !t.completed);
+      return this.props.todos.filter(todo => !todo.completed);
     } else if (this.props.filter === Filters.SHOW_COMPLETED) {
-      return this.props.todos.filter(t => t.completed);
+      return this.props.todos.filter(todo => todo.completed);
     } else {
       return this.props.todos;
     }
   };
 
+  isCompletedAll = () => {
+    const todos = [...this.props.todos];
+    let flag = todos.every(todo => todo.completed);
+    return flag;
+  }
+
   componentDidMount(){
-    console.log('componentDidMount: TodoList.js');
+    console.log('componentDidMount: TodoList');
   }
 
   render() {
     const filteredTodos = this.getFilteredTodos();
+    console.log(filteredTodos);
     const todoList = !filteredTodos.length ? (
       <div className="no-todo">No Todos</div>
     ) : (
@@ -63,7 +74,7 @@ class TodoList extends Component {
             <div className="row todo-list">
               <div className="col-12">{todoList}</div>
             </div>
-            <TodoInfo todos={this.props.todos} />
+            <TodoInfo todos={this.props.todos} completedAll={this.isCompletedAll()} onCompletedAll={this.handleCompletedAll} />
           </div>
         </div>
       </div>
@@ -79,7 +90,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onEditTodo: id => dispatch(editTodo(id))
+    onEditTodo: id => dispatch(editTodo(id)),
+    onCheckAll: completed => dispatch(completedAll(completed))
   };
 };
 export default connect(
